@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./components/Header";
 import Week from './components/Week';
-// import Todos from "./components/Todos";
 import "./App.css";
 
 function App() {
@@ -9,7 +8,6 @@ function App() {
     <div className="container">
       <Header />
       <Week />
-      {/* <Todos /> */}
     </div>
   );
 }
