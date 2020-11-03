@@ -1,22 +1,13 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 const backgroundColor = "white";
-const shadowColor = "#e1e6ec";
+const buttonBackground = "#f9f5fc";
+const shadowColor = "#aa85ba";
 const distance = "4px";
-const stripsSize = "10px"; /// Controls the size of the stripes
+const stripsSize = "4px"; /// Controls the size of the stripes
 const stripsAngle = "45deg";
 const borderRadius = "6px";
-const textColor = "#e1e6ec";
-
-const dashAnimation = keyframes`
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 100% 0;
-  }
-`;
 
 const Button = styled.button`
   font-size: 12px;
@@ -30,15 +21,16 @@ const Button = styled.button`
 `;
 
 const TomatoButton = styled(Button)`
-  color: ${textColor};
+  color: #aa85ba;
   padding: 10px 20px;
   position: relative;
-  border: 2px solid ${shadowColor};
-  background-color: ${backgroundColor};
+  background-color: ${buttonBackground};
+  transition: .3s;
 
   &::after {
     border-radius: ${borderRadius};
     content: "";
+    opacity: 1;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -57,23 +49,28 @@ const TomatoButton = styled(Button)`
       transparent 75%,
       transparent
     );
+    transition: 0.3s;
+    transition-delay: 0.3s;
   }
 
-  /* &:hover::after {
-    animation: ${dashAnimation} 7s infinite linear;
-  } */
   &:hover {
+    transition: .3s;
+    transform: translate(4px, 4px);
+  }
 
+  &:hover::after {
+    opacity: 0;
+    transition: 0s;
   }
 `;
 
 
-const AddTodo = () => {
+const AddBoard = () => {
   return (
     <TomatoButton type="button">
-      Add todo
+      Add Board
     </TomatoButton>
   )
 }
 
-export default AddTodo
+export default AddBoard

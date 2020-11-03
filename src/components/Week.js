@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import moment from 'moment';
-import AddTodo from './AddTodo';
+import AddBoard from './AddBoard';
 
 let currDay = moment();
 
@@ -85,7 +85,7 @@ const HeaderText = styled.div`
 const BaseHeaderText = styled.div.attrs(props => ({
   weight: props.weight || "normal",
 }))`
-  color: #444655;
+  color: #22062e;
   font-size: 16px;
   font-weight: ${props => props.weight};
   margin-right: 10px;
@@ -93,7 +93,7 @@ const BaseHeaderText = styled.div.attrs(props => ({
 
 const SmallHeaderText = styled.div`
   margin-right: 6px;
-  color: #A4A9CE;
+  color: #aa85ba;
   font-size: 12px;
 `;
 
@@ -110,7 +110,7 @@ const Week = () => {
               <BaseHeaderText weight={day.today && '900'}>{day.week}</BaseHeaderText>
               <SmallHeaderText>{day.day},</SmallHeaderText><SmallHeaderText>{day.month}</SmallHeaderText>
             </HeaderText>
-            <AddTodo />
+            <AddBoard />
           </Item>
       ))}
     </Grid>

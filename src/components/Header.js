@@ -2,9 +2,9 @@ import React from "react";
 import styled, { keyframes } from 'styled-components';
 
 const backgroundColor = "white";
-const shadowColor = "#e1e6ec";
+const shadowColor = "#aa85ba";
 const distance = "4px";
-const stripsSize = "10px"; /// Controls the size of the stripes
+const stripsSize = "4px"; /// Controls the size of the stripes
 const stripsAngle = "45deg";
 const borderRadius = "6px";
 
@@ -37,7 +37,7 @@ const StripeBoxShadow = styled.span`
   display: inline-block;
   padding: 10px 20px;
   position: relative;
-  background-color: black;
+  background-color: #22062e;
   color: white;
 
   &::after {
