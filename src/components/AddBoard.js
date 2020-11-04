@@ -20,7 +20,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const TomatoButton = styled(Button)`
+const StripeShadowButton = styled(Button)`
   color: #aa85ba;
   padding: 10px 20px;
   position: relative;
@@ -67,9 +67,9 @@ const TomatoButton = styled(Button)`
 
 const AddBoard = () => {
   return (
-    <TomatoButton type="button">
+    <StripeShadowButton type="button">
       Add Board
-    </TomatoButton>
+    </StripeShadowButton>
   )
 }
 
