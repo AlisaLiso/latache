@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useReducer } from 'react';
+import Board from './Board';
 import styled from 'styled-components';
 
 const backgroundColor = "white";
@@ -64,12 +65,48 @@ const StripeShadowButton = styled(Button)`
   }
 `;
 
+const initialState = {
+  type: 'ADD_BOARD'
+};
+
+const handleAddBoard = () => { };
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'EDIT_BOARD':
+      return { type: 'EDIT_BOARD' };
+
+    case 'NEW_BOARD':
+      return { type: 'NEW_BOARD' };
+
+    case 'DELETE_BOARD':
+      return { type: 'DELETE_BOARD' };
+
+    default:
+      console.error("Action for this type not found");
+      return state;
+  }
+};
 
 const AddBoard = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
-    <StripeShadowButton type="button">
-      Add Board
-    </StripeShadowButton>
+    <>
+      {state.type === "ADD_BOARD" &&
+        <StripeShadowButton type="button" onClick={() => dispatch({ type: 'NEW_BOARD' })}>
+          Add Board
+        </StripeShadowButton>
+      }
+      {state.type === "NEW_BOARD" &&
+        <Board type={"NEW_BOARD"} />
+      }
+      {state.type === "DELETE_BOARD" &&
+        <StripeShadowButton type="button" onClick={handleAddBoard}>
+          Delete Board
+        </StripeShadowButton>
+      }
+    </>
   )
 }
 
