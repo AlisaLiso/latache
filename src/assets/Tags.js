@@ -5,21 +5,26 @@ const defaultBoardColor = "221,221,221";
 
 const StyledTag = styled.li.attrs(props => ({
   color: props.color || defaultBoardColor,
-  opacity: props.active ? 1 : 0.5,
+  border: props.active ? props.color : "transparent",
 }))`
   background-color: rgb(${props => props.color});
   font-size: 12px;
   display: inline-block;
-  padding: 5px 10px;
+  padding: 2px 5px;
   border-radius: 3px;
   margin-right: 5px;
   font-weight: 800;
-  opacity: ${props => props.opacity};
   transition: 0.3s;
+  box-shadow: 0 0 0 2pt rgba(${props => props.border}, 0.5);
   cursor: pointer;
 
   &:hover {
-    opacity: 1;
+    box-shadow: 0 0 0 2pt rgba(${props => props.color}, 0.5);
+    transition: 0.3s;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2pt rgba(${props => props.color}, 0.5);
     transition: 0.3s;
   }
 `;

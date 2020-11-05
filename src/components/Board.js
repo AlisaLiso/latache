@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Task from './Task';
 import AddTask from './AddTask';
 import Tags from '../assets/Tags';
+import Colors from '../assets/Colors';
 import styled from 'styled-components';
 
 const borderRadius = "6px";
@@ -48,7 +49,7 @@ const StyledBoard = styled.div.attrs(props => ({
   }
 `;
 
-const BoardHead = styled.div.attrs(props => ({
+const StyledBoardHead = styled.div.attrs(props => ({
   primaryColor: props.primaryColor || defaultBoardColor,
 }))`
   background-color: rgba(${props => props.primaryColor}, 1);
@@ -60,7 +61,7 @@ const BoardHead = styled.div.attrs(props => ({
   color: darken(rgba(${props => props.primaryColor}), 100%);
 `;
 
-const BoardHeadInput = styled.input.attrs(props => ({
+const StyledBoardHeadInput = styled.input.attrs(props => ({
   primaryColor: props.primaryColor || defaultBoardColor,
 }))`
   width: 100%;
@@ -77,7 +78,7 @@ const BoardHeadInput = styled.input.attrs(props => ({
   color: darken(rgba(${props => props.primaryColor}), 100%);
 `;
 
-const Line = styled.div.attrs(props => ({
+const StyledLine = styled.div.attrs(props => ({
   color: props.color || defaultBoardColor,
 }))`
   width: 100%;
@@ -86,36 +87,13 @@ const Line = styled.div.attrs(props => ({
   margin: 8px 0;
 `;
 
-const StyledColor = styled.li.attrs(props => ({
-  color: props.color || defaultBoardColor,
-}))`
-  width: 14px;
-  height: 14px;
-  cursor: pointer;
-  background-color: rgb(${props => props.color});
-  border-radius: 3px;
-  list-style: none;
-  margin-right: 5px;
-  opacity: 0.7;
-  transition: 0.3s;
-
-  &:hover {
-    opacity: 1;
-    transition: 0.3s;
-  }
-`;
-
 const tags = [
   { title: "Work", color: "242,170,170", selected: false, id: 1 },
   { title: "Home", color: "224,244,245", selected: false, id: 2 },
   { title: "General", color: "250,240,175", selected: false, id: 3 },
 ]
 
-function Color({ color, setColor }) {
-  return (<StyledColor color={color} onClick={() => setColor(color)}></StyledColor>);
-};
-
-const BoardContent = styled.div.attrs(props => ({
+const StyledBoardContent = styled.div.attrs(props => ({
   primaryColor: props.primaryColor || defaultBoardColor,
 }))`
   padding: 8px;
@@ -124,7 +102,7 @@ const BoardContent = styled.div.attrs(props => ({
   border-bottom-right-radius: ${borderSmalRadius};
 `;
 
-const List = styled.ul`
+const StyledList = styled.ul`
   margin: 0;
   padding: 0;
   display: flex;
@@ -137,10 +115,9 @@ function EditingBoard() {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (e) => setInputValue(e.target.value);
-
   return (
     <StyledBoard primaryColor={color} transition={"none"}>
-      <BoardHeadInput
+      <StyledBoardHeadInput
         primaryColor={color}
         autoFocus
         placeholder="Board name"
@@ -148,19 +125,17 @@ function EditingBoard() {
         onChange={handleInputChange}
         value={inputValue}
       />
-      <BoardContent>
-        <List>
+      <StyledBoardContent>
+        <StyledList>
           <Tags tags={tags} setInputValue={setInputValue} setColor={setColor} />
-        </List>
+        </StyledList>
         {tags.length > 0 && colors.length > 0 &&
-          <Line color={color}></Line>
+          <StyledLine color={color}></StyledLine>
         }
-        <List>
-          {colors?.map((color, index) => (
-            <Color key={index} color={color} setColor={setColor} />
-          ))}
-        </List>
-      </BoardContent>
+        <StyledList>
+          <Colors colors={colors} setColor={setColor} />
+        </StyledList>
+      </StyledBoardContent>
     </StyledBoard>
   );
 }
@@ -180,13 +155,13 @@ function Board({ board, type = 'DEFAULT' }) {
 
 const DefaultBoard = ({ board }) => (
   <StyledBoard primaryColor={board.color}>
-    <BoardHead primaryColor={board.color}>{board.title}</BoardHead>
-    <BoardContent>
+    <StyledBoardHead primaryColor={board.color}>{board.title}</StyledBoardHead>
+    <StyledBoardContent>
       {board.tasks?.map((task, index) => (
         <Task task={task} key={index} />
       ))}
       <AddTask color={board.color} />
-    </BoardContent>
+    </StyledBoardContent>
   </StyledBoard>
 );
 
