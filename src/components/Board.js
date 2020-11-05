@@ -94,9 +94,11 @@ const StyledColor = styled.div.attrs(props => ({
   margin-right: 5px;
   margin-bottom: 5px;
   opacity: 0.7;
+  transition: 0.3s;
 
   &:hover {
     opacity: 1;
+    transition: 0.3s;
   }
 `;
 
