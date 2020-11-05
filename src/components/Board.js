@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Task from './Task';
 import AddTask from './AddTask';
 import Tags from '../assets/Tags';
@@ -113,6 +113,16 @@ const colors = ["242,170,170", "224,244,245", "221,221,221", "250,190,167", "243
 function EditingBoard() {
   const [color, setColor] = useState(defaultBoardColor);
   const [inputValue, setInputValue] = useState('');
+  const [chosenColor, setChosenColor] = useState(false);
+  const [chosenTag, setChosenTag] = useState(false);
+
+  useEffect(() => {
+    setChosenTag(false);
+  }, [chosenColor])
+
+  useEffect(() => {
+    setChosenColor(false);
+  }, [chosenTag])
 
   const handleInputChange = (e) => setInputValue(e.target.value);
   return (
@@ -127,13 +137,13 @@ function EditingBoard() {
       />
       <StyledBoardContent>
         <StyledList>
-          <Tags tags={tags} setInputValue={setInputValue} setColor={setColor} />
+          <Tags tags={tags} setInputValue={setInputValue} setColor={setColor} chosen={chosenTag} setChosen={setChosenTag} />
         </StyledList>
         {tags.length > 0 && colors.length > 0 &&
           <StyledLine color={color}></StyledLine>
         }
         <StyledList>
-          <Colors colors={colors} setColor={setColor} />
+          <Colors colors={colors} setColor={setColor} chosen={chosenColor} setChosen={setChosenColor} />
         </StyledList>
       </StyledBoardContent>
     </StyledBoard>

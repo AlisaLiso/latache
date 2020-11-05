@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const defaultBoardColor = "221,221,221";
@@ -39,9 +39,7 @@ function Tag({ active, tag, setInputValue, setColor, onClick }) {
   return (<StyledTag active={active} color={tag.color} onClick={handleColorClick}>{tag.title}</StyledTag>);
 };
 
-function Tags({ tags, setInputValue, setColor }) {
-  const [chosen, setChosen] = useState(false);
-
+function Tags({ tags, setInputValue, setColor, chosen, setChosen }) {
   return (
     <>
       {tags?.map((tag, index) => (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const defaultBoardColor = "221,221,221";
@@ -36,9 +36,7 @@ function Color({ color, setColor, onClick, active }) {
   return (<StyledColor color={color} active={active} onClick={handleColorClick}></StyledColor>);
 };
 
-function Colors({ colors, setColor }) {
-  const [chosen, setChosen] = useState(false);
-
+function Colors({ colors, setColor, chosen, setChosen }) {
   return (
     <>
       {colors?.map((color, index) => (
