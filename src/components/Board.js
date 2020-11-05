@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Task from './Task';
 import AddTask from './AddTask';
+import Tags from '../assets/Tags';
 import styled from 'styled-components';
 
 const borderRadius = "6px";
@@ -82,10 +83,10 @@ const Line = styled.div.attrs(props => ({
   width: 100%;
   height: 1px;
   background-color: rgb(${props => props.color});
-  margin: 12px 0;
+  margin: 8px 0;
 `;
 
-const StyledColor = styled.div.attrs(props => ({
+const StyledColor = styled.li.attrs(props => ({
   color: props.color || defaultBoardColor,
 }))`
   width: 14px;
@@ -93,34 +94,10 @@ const StyledColor = styled.div.attrs(props => ({
   cursor: pointer;
   background-color: rgb(${props => props.color});
   border-radius: 3px;
+  list-style: none;
   margin-right: 5px;
-  margin-bottom: 5px;
   opacity: 0.7;
   transition: 0.3s;
-
-  &:hover {
-    opacity: 1;
-    transition: 0.3s;
-  }
-`;
-
-const Row = styled.div`
-  display: flex;
-`;
-
-const StyledTag = styled.span.attrs(props => ({
-  color: props.color || defaultBoardColor,
-}))`
-  background-color: rgb(${props => props.color});
-  font-size: 12px;
-  padding: 5px 10px;
-  border-radius: 3px;
-  margin-right: 5px;
-  margin-bottom: 10px;
-  font-weight: 800;
-  opacity: 0.7;
-  transition: 0.3s;
-  cursor: pointer;
 
   &:hover {
     opacity: 1;
@@ -129,19 +106,10 @@ const StyledTag = styled.span.attrs(props => ({
 `;
 
 const tags = [
-  { title: "Work", color: "242,170,170" },
-  { title: "Home", color: "224,244,245" },
-  { title: "General", color: "250,240,175" },
+  { title: "Work", color: "242,170,170", selected: false, id: 1 },
+  { title: "Home", color: "224,244,245", selected: false, id: 2 },
+  { title: "General", color: "250,240,175", selected: false, id: 3 },
 ]
-
-function Tag({ tag, setInputValue, setColor }) {
-  const handleColorClick = () => {
-    setInputValue(tag.title);
-    setColor(tag.color);
-  };
-
-  return (<StyledTag color={tag.color} onClick={handleColorClick}>{tag.title}</StyledTag>);
-};
 
 function Color({ color, setColor }) {
   return (<StyledColor color={color} onClick={() => setColor(color)}></StyledColor>);
@@ -154,6 +122,12 @@ const BoardContent = styled.div.attrs(props => ({
   background-color: ${backgroundColor};
   border-bottom-left-radius: ${borderSmalRadius};
   border-bottom-right-radius: ${borderSmalRadius};
+`;
+
+const List = styled.ul`
+  margin: 0;
+  padding: 0;
+  display: flex;
 `;
 
 const colors = ["242,170,170", "224,244,245", "221,221,221", "250,190,167", "243,230,227", "241,197,197", "195,174,214", "223,211,195", "250,240,175", "160,193,184", "246,222,246", "255,236,199"];
@@ -175,17 +149,17 @@ function EditingBoard() {
         value={inputValue}
       />
       <BoardContent>
-        {tags?.map((tag, index) => (
-          <Tag key={index} tag={tag} setInputValue={setInputValue} setColor={setColor} />
-        ))}
+        <List>
+          <Tags tags={tags} setInputValue={setInputValue} setColor={setColor} />
+        </List>
         {tags.length > 0 && colors.length > 0 &&
           <Line color={color}></Line>
         }
-        <Row>
+        <List>
           {colors?.map((color, index) => (
             <Color key={index} color={color} setColor={setColor} />
           ))}
-        </Row>
+        </List>
       </BoardContent>
     </StyledBoard>
   );
