@@ -76,10 +76,12 @@ const BoardHeadInput = styled.input.attrs(props => ({
   color: darken(rgba(${props => props.primaryColor}), 100%);
 `;
 
-const Line = styled.div`
+const Line = styled.div.attrs(props => ({
+  color: props.color || defaultBoardColor,
+}))`
   width: 100%;
   height: 1px;
-  background-color: rgb(${defaultBoardColor});
+  background-color: rgb(${props => props.color});
   margin: 12px 0;
 `;
 
@@ -177,7 +179,7 @@ function EditingBoard() {
           <Tag key={index} tag={tag} setInputValue={setInputValue} setColor={setColor} />
         ))}
         {tags.length > 0 && colors.length > 0 &&
-          <Line></Line>
+          <Line color={color}></Line>
         }
         <Row>
           {colors?.map((color, index) => (
