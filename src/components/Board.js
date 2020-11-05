@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import Task from './Task';
 import AddTask from './AddTask';
 import styled from 'styled-components';
@@ -132,9 +132,14 @@ const tags = [
   { title: "General", color: "250,240,175" },
 ]
 
-const Tag = ({ tag }) => (
-  <StyledTag color={tag.color}>{tag.title}</StyledTag>
-);
+function Tag({ tag, setInputValue, setColor }) {
+  const handleColorClick = () => {
+    setInputValue(tag.title);
+    setColor(tag.color);
+  };
+
+  return (<StyledTag color={tag.color} onClick={handleColorClick}>{tag.title}</StyledTag>);
+};
 
 function Color({ color, setColor }) {
   return (<StyledColor color={color} onClick={() => setColor(color)}></StyledColor>);
@@ -153,13 +158,23 @@ const colors = ["242,170,170", "224,244,245", "221,221,221", "250,190,167", "243
 
 function EditingBoard() {
   const [color, setColor] = useState(defaultBoardColor);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (e) => setInputValue(e.target.value);
 
   return (
     <StyledBoard primaryColor={color} transition={"none"}>
-      <BoardHeadInput primaryColor={color} autoFocus placeholder="Board name" type="text" />
+      <BoardHeadInput
+        primaryColor={color}
+        autoFocus
+        placeholder="Board name"
+        type="text"
+        onChange={handleInputChange}
+        value={inputValue}
+      />
       <BoardContent>
         {tags?.map((tag, index) => (
-          <Tag key={index} tag={tag} />
+          <Tag key={index} tag={tag} setInputValue={setInputValue} setColor={setColor} />
         ))}
         {tags.length > 0 && colors.length > 0 &&
           <Line></Line>
