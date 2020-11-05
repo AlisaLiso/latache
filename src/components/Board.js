@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Task from './Task';
 import AddTask from './AddTask';
 import styled from 'styled-components';
@@ -13,6 +13,7 @@ const defaultBoardColor = "221,221,221";
 
 const StyledBoard = styled.div.attrs(props => ({
   primaryColor: props.primaryColor || defaultBoardColor,
+  transition: props.transition || "0.3s",
 }))`
   border: 1px solid rgba(${props => props.primaryColor}, 1);
   border-radius: ${borderRadius};
@@ -41,7 +42,7 @@ const StyledBoard = styled.div.attrs(props => ({
       transparent 75%,
       transparent
     );
-    transition: 0.3s;
+    transition: ${props => props.transition};
     transition-delay: 0.3s;
   }
 `;
@@ -102,12 +103,39 @@ const StyledColor = styled.div.attrs(props => ({
 const Row = styled.div`
   display: flex;
 `;
-const Tag = () => (
-  <div>Tag</div>
+
+const StyledTag = styled.span.attrs(props => ({
+  color: props.color || defaultBoardColor,
+}))`
+  background-color: rgb(${props => props.color});
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  font-weight: 800;
+  opacity: 0.7;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+    transition: 0.3s;
+  }
+`;
+
+const tags = [
+  { title: "Work", color: "242,170,170" },
+  { title: "Home", color: "224,244,245" },
+  { title: "General", color: "250,240,175" },
+]
+
+const Tag = ({ tag }) => (
+  <StyledTag color={tag.color}>{tag.title}</StyledTag>
 );
 
 function Color({ color, setColor }) {
-  return (<StyledColor color={color} onClick={() => setColor(color)}></StyledColor>)
+  return (<StyledColor color={color} onClick={() => setColor(color)}></StyledColor>);
 };
 
 const BoardContent = styled.div.attrs(props => ({
@@ -118,18 +146,18 @@ const BoardContent = styled.div.attrs(props => ({
   border-bottom-left-radius: ${borderSmalRadius};
   border-bottom-right-radius: ${borderSmalRadius};
 `;
-const tags = [{ title: "Home", color: '' }, { title: "Work", color: '' }];
+
 const colors = ["242,170,170", "224,244,245", "221,221,221", "250,190,167", "243,230,227", "241,197,197", "195,174,214", "223,211,195", "250,240,175", "160,193,184", "246,222,246", "255,236,199"];
 
 function EditingBoard() {
   const [color, setColor] = useState(defaultBoardColor);
 
   return (
-    <StyledBoard primaryColor={color}>
-      <BoardHeadInput primaryColor={color} placeholder="Board name" type="text" />
+    <StyledBoard primaryColor={color} transition={"none"}>
+      <BoardHeadInput primaryColor={color} autoFocus placeholder="Board name" type="text" />
       <BoardContent>
         {tags?.map((tag, index) => (
-          <Tag key={index} data={tag} />
+          <Tag key={index} tag={tag} />
         ))}
         {tags.length > 0 && colors.length > 0 &&
           <Line></Line>
