@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Task from './Task';
 import AddTask from './AddTask';
 import Tags from '../assets/Tags';
@@ -52,6 +52,7 @@ const StyledBoard = styled.div.attrs(props => ({
 const StyledBoardHead = styled.div.attrs(props => ({
   primaryColor: props.primaryColor || defaultBoardColor,
 }))`
+  display: flex;
   background-color: rgba(${props => props.primaryColor}, 1);
   padding: 8px;
   border-top-left-radius: ${borderSmalRadius};
@@ -61,10 +62,16 @@ const StyledBoardHead = styled.div.attrs(props => ({
   color: darken(rgba(${props => props.primaryColor}), 100%);
 `;
 
+const StyledBoardHeadWithLink = styled(StyledBoardHead)`
+  display: flex;
+  align-items: center;
+  padding: 0;
+`;
+
 const StyledBoardHeadInput = styled.input.attrs(props => ({
   primaryColor: props.primaryColor || defaultBoardColor,
 }))`
-  width: 100%;
+  width: 85%;
   box-sizing: border-box;
   outline: none;
   background-color: rgba(${props => props.primaryColor}, 1);
@@ -85,6 +92,11 @@ const StyledLine = styled.div.attrs(props => ({
   height: 1px;
   background-color: rgb(${props => props.color});
   margin: 8px 0;
+`;
+
+const StyledLink = styled.div`
+  text-align: center;
+  cursor: pointer;
 `;
 
 const tags = [
@@ -119,14 +131,17 @@ function EditingBoard() {
   const handleInputChange = (e) => setInputValue(e.target.value);
   return (
     <StyledBoard primaryColor={color} transition={"none"}>
-      <StyledBoardHeadInput
-        primaryColor={color}
-        autoFocus
-        placeholder="Board name"
-        type="text"
-        onChange={handleInputChange}
-        value={inputValue}
-      />
+      <StyledBoardHeadWithLink>
+        <StyledBoardHeadInput
+          primaryColor={color}
+          autoFocus
+          placeholder="Board name"
+          type="text"
+          onChange={handleInputChange}
+          value={inputValue}
+        />
+        <StyledLink>Done</StyledLink>
+      </StyledBoardHeadWithLink>
       <StyledBoardContent>
         <StyledList>
           <Tags tags={tags} setInputValue={setInputValue} setColor={setColor} chosen={chosenTag} setChosen={setChosenTag} setChosenColor={setChosenColor} />
