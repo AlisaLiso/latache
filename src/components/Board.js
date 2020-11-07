@@ -116,14 +116,6 @@ function EditingBoard() {
   const [chosenColor, setChosenColor] = useState(false);
   const [chosenTag, setChosenTag] = useState(false);
 
-  useEffect(() => {
-    setChosenTag(false);
-  }, [chosenColor])
-
-  useEffect(() => {
-    setChosenColor(false);
-  }, [chosenTag])
-
   const handleInputChange = (e) => setInputValue(e.target.value);
   return (
     <StyledBoard primaryColor={color} transition={"none"}>
@@ -137,13 +129,13 @@ function EditingBoard() {
       />
       <StyledBoardContent>
         <StyledList>
-          <Tags tags={tags} setInputValue={setInputValue} setColor={setColor} chosen={chosenTag} setChosen={setChosenTag} />
+          <Tags tags={tags} setInputValue={setInputValue} setColor={setColor} chosen={chosenTag} setChosen={setChosenTag} setChosenColor={setChosenColor} />
         </StyledList>
         {tags.length > 0 && colors.length > 0 &&
           <StyledLine color={color}></StyledLine>
         }
         <StyledList>
-          <Colors colors={colors} setColor={setColor} chosen={chosenColor} setChosen={setChosenColor} />
+          <Colors colors={colors} setColor={setColor} chosen={chosenColor} setChosenTag={setChosenTag} setChosen={setChosenColor} />
         </StyledList>
       </StyledBoardContent>
     </StyledBoard>

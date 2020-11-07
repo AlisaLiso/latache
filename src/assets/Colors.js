@@ -36,11 +36,14 @@ function Color({ color, setColor, onClick, active }) {
   return (<StyledColor color={color} active={active} onClick={handleColorClick}></StyledColor>);
 };
 
-function Colors({ colors, setColor, chosen, setChosen }) {
+function Colors({ colors, setColor, chosen, setChosen, setChosenTag }) {
   return (
     <>
       {colors?.map((color, index) => (
-        <Color onClick={() => setChosen(color)} active={color === chosen} key={index} color={color} setColor={setColor} />
+        <Color onClick={() => {
+          setChosenTag(false);
+          setChosen(color)
+        }} active={color === chosen} key={index} color={color} setColor={setColor} />
       ))}
     </>
   )

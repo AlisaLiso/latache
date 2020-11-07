@@ -39,11 +39,14 @@ function Tag({ active, tag, setInputValue, setColor, onClick }) {
   return (<StyledTag active={active} color={tag.color} onClick={handleColorClick}>{tag.title}</StyledTag>);
 };
 
-function Tags({ tags, setInputValue, setColor, chosen, setChosen }) {
+function Tags({ tags, setInputValue, setColor, chosen, setChosen, setChosenColor }) {
   return (
     <>
       {tags?.map((tag, index) => (
-        <Tag onClick={() => setChosen(tag)} key={index} tag={tag} setInputValue={setInputValue} setColor={setColor} active={tag === chosen} />
+        <Tag onClick={() => {
+          setChosenColor(false);
+          setChosen(tag)
+        }} key={index} tag={tag} setInputValue={setInputValue} setColor={setColor} active={tag === chosen} />
       ))}
     </>
   )
