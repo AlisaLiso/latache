@@ -62,10 +62,13 @@ const StyledBoardHead = styled.div.attrs(props => ({
   color: darken(rgba(${props => props.primaryColor}), 100%);
 `;
 
-const StyledBoardHeadWithLink = styled(StyledBoardHead)`
+const StyledBoardHeadWithLink = styled(StyledBoardHead).attrs(props => ({
+  primaryColor: props.primaryColor || defaultBoardColor,
+}))`
   display: flex;
   align-items: center;
   padding: 0;
+  background-color: rgba(${props => props.primaryColor}, 1);;
 `;
 
 const StyledBoardHeadInput = styled.input.attrs(props => ({
@@ -97,6 +100,13 @@ const StyledLine = styled.div.attrs(props => ({
 const StyledLink = styled.div`
   text-align: center;
   cursor: pointer;
+  opacity: 0.7;
+  transition: 0.3s;
+
+  &:hover {
+    transition: 0.3s;
+    opacity: 1;
+  }
 `;
 
 const tags = [
@@ -128,19 +138,33 @@ function EditingBoard() {
   const [chosenColor, setChosenColor] = useState(false);
   const [chosenTag, setChosenTag] = useState(false);
 
+  const onKeyDownHandler = e => {
+    if (e.keyCode === 13) {
+      /// Add new board
+      console.log("ENTER");
+    }
+  };
+
+  const onDoneHandler = () => {
+    /// Add new board
+    console.log("DONE");
+  };
+
   const handleInputChange = (e) => setInputValue(e.target.value);
+
   return (
     <StyledBoard primaryColor={color} transition={"none"}>
-      <StyledBoardHeadWithLink>
+      <StyledBoardHeadWithLink primaryColor={color}>
         <StyledBoardHeadInput
           primaryColor={color}
           autoFocus
+          onKeyDown={onKeyDownHandler}
           placeholder="Board name"
           type="text"
           onChange={handleInputChange}
           value={inputValue}
         />
-        <StyledLink>Done</StyledLink>
+        <StyledLink onClick={onDoneHandler}>Done</StyledLink>
       </StyledBoardHeadWithLink>
       <StyledBoardContent>
         <StyledList>
