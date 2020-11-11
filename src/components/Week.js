@@ -25,7 +25,6 @@ const Grid = styled.div`
     grid-template-rows: none;
   }
 `;
-
 const Item = styled.div`
   padding: 10px;
   box-sizing: border-box;
@@ -38,18 +37,15 @@ const Item = styled.div`
     min-height: 400px;
   }
 `;
-
 const HeaderText = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 `;
-
 const BigHeaderText = styled.div`
   font-size: 30px;
   font-weight: 900;
 `;
-
 const BaseHeaderText = styled.div.attrs(props => ({
   weight: props.weight || "normal",
 }))`
@@ -58,7 +54,6 @@ const BaseHeaderText = styled.div.attrs(props => ({
   font-weight: ${props => props.weight};
   margin-right: 10px;
 `;
-
 const SmallHeaderText = styled.div`
   margin-right: 6px;
   color: #aa85ba;
@@ -71,12 +66,17 @@ const Week = ({ data }) => {
       {data.map((day, index) => (
         day.isInfo ?
           <Item key={index}>
-            <HeaderText><BigHeaderText>{day.month}, {day.range}</BigHeaderText></HeaderText>
+            <HeaderText>
+              <BigHeaderText>{day.month}, {day.range}</BigHeaderText>
+            </HeaderText>
           </Item>
           : <Item key={index}>
             <HeaderText>
-              <BaseHeaderText weight={day.today && '900'}>{day.week}</BaseHeaderText>
-              <SmallHeaderText>{day.day},</SmallHeaderText><SmallHeaderText>{day.month}</SmallHeaderText>
+              <BaseHeaderText weight={day.today && '900'}>
+                {day.week}
+              </BaseHeaderText>
+              <SmallHeaderText>{day.day},</SmallHeaderText>
+              <SmallHeaderText>{day.month}</SmallHeaderText>
             </HeaderText>
             {day.boards?.map((board, index) => (
               <Board key={index} board={board} />

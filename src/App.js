@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "./components/Header";
 import Week from './components/Week';
 import moment from 'moment';
@@ -87,11 +87,7 @@ const getWeek = (curr) => {
   return days;
 }
 
-const initialState = [];
-
 function App() {
-  const [boards, setBoard] = useState(initialState);
-
   return (
     <div className="container">
       <Header />

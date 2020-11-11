@@ -1,12 +1,8 @@
 import React from "react";
 import styled, { keyframes } from 'styled-components';
-
-const backgroundColor = "white";
-const shadowColor = "#aa85ba";
-const distance = "4px";
-const stripsSize = "4px"; /// Controls the size of the stripes
-const stripsAngle = "45deg";
-const borderRadius = "6px";
+import {
+  BG_COLOR, SHADOW_COLOR, STRIPS_DISTANCE, STRIPS_SIZE, STRIPS_ANGLE, BORDER_RADIUS
+} from '../helpers/globalVariables';
 
 const dashAnimation = keyframes`
   0% {
@@ -16,11 +12,9 @@ const dashAnimation = keyframes`
     background-position: 100% 0;
   }
 `;
-
 const StyledHeader = styled.div`
   padding: 28px 0;
 `;
-
 const Logo = styled.div`
   font-weight: 800;
   font-size: 24px;
@@ -29,10 +23,9 @@ const Logo = styled.div`
     box-shadow: 0px 0px 0px 2px black inset;
     padding: 1px 5px;
     margin-right: 10px;
-    border-radius: ${borderRadius};
+    border-radius: ${BORDER_RADIUS};
   }
 `;
-
 const StripeBoxShadow = styled.span`
   display: inline-block;
   padding: 10px 20px;
@@ -41,23 +34,23 @@ const StripeBoxShadow = styled.span`
   color: white;
 
   &::after {
-    border-radius: ${borderRadius};
+    border-radius: ${BORDER_RADIUS};
     content: "";
     position: absolute;
     width: 100%;
     height: 100%;
-    left: ${distance};
-    top: ${distance};
+    left: ${STRIPS_DISTANCE};
+    top: ${STRIPS_DISTANCE};
     z-index: -1;
-    background-size: ${stripsSize} ${stripsSize};
-    background-color: ${shadowColor};
+    background-size: ${STRIPS_SIZE} ${STRIPS_SIZE};
+    background-color: ${SHADOW_COLOR};
     background-image: linear-gradient(
-      ${stripsAngle},
-      ${backgroundColor} 25%,
+      ${STRIPS_ANGLE},
+      ${BG_COLOR} 25%,
       transparent 25%,
       transparent 50%,
-      ${backgroundColor} 50%,
-      ${backgroundColor} 75%,
+      ${BG_COLOR} 50%,
+      ${BG_COLOR} 75%,
       transparent 75%,
       transparent
     );

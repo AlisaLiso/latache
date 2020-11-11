@@ -1,14 +1,9 @@
 import React, { useReducer } from 'react';
 import Board from './Board';
 import styled from 'styled-components';
-
-const backgroundColor = "white";
-const buttonBackground = "#f9f5fc";
-const shadowColor = "#aa85ba";
-const distance = "4px";
-const stripsSize = "4px"; /// Controls the size of the stripes
-const stripsAngle = "45deg";
-const borderRadius = "6px";
+import {
+  BG_COLOR, SHADOW_COLOR, BORDER_RADIUS, STRIPS_DISTANCE, STRIPS_SIZE, STRIPS_ANGLE, BTN_BG_COLOR
+} from '../helpers/globalVariables';
 
 const Button = styled.button`
   font-size: 12px;
@@ -16,37 +11,36 @@ const Button = styled.button`
   width: 100%;
   text-align: center;
   background-color: white;
-  border-radius: ${borderRadius};
+  border-radius: ${BORDER_RADIUS};
   border: none;
   cursor: pointer;
 `;
-
 const StripeShadowButton = styled(Button)`
   color: #aa85ba;
   padding: 10px 20px;
   position: relative;
-  background-color: ${buttonBackground};
+  background-color: ${BTN_BG_COLOR};
   transition: .3s;
 
   &::after {
-    border-radius: ${borderRadius};
+    border-radius: ${BORDER_RADIUS};
     content: "";
     opacity: 1;
     position: absolute;
     width: 100%;
     height: 100%;
-    left: ${distance};
-    top: ${distance};
+    left: ${STRIPS_DISTANCE};
+    top: ${STRIPS_DISTANCE};
     z-index: -1;
-    background-size: ${stripsSize} ${stripsSize};
-    background-color: ${shadowColor};
+    background-size: ${STRIPS_SIZE} ${STRIPS_SIZE};
+    background-color: ${SHADOW_COLOR};
     background-image: linear-gradient(
-      ${stripsAngle},
-      ${backgroundColor} 25%,
+      ${STRIPS_ANGLE},
+      ${BG_COLOR} 25%,
       transparent 25%,
       transparent 50%,
-      ${backgroundColor} 50%,
-      ${backgroundColor} 75%,
+      ${BG_COLOR} 50%,
+      ${BG_COLOR} 75%,
       transparent 75%,
       transparent
     );
