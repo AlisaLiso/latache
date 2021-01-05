@@ -7,6 +7,7 @@ const BORDER_RADIUS = "6px";
 const INSIDE_BORDER_RADIUS = "5px";
 const DEFAULT_HEX_COLOR = "221,221,221";
 const BTN_BG_COLOR = "#f9f5fc";
+const GRAY_COLOR = "#DDDDDD";
 
 export {
   BG_COLOR,
@@ -17,5 +18,6 @@ export {
   BORDER_RADIUS,
   INSIDE_BORDER_RADIUS,
   DEFAULT_HEX_COLOR,
-  BTN_BG_COLOR
+  BTN_BG_COLOR,
+  GRAY_COLOR
 }

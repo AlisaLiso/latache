@@ -50,14 +50,14 @@ const BaseHeaderText = styled.div.attrs(props => ({
   weight: props.weight || "normal",
 }))`
   color: #22062e;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: ${props => props.weight};
   margin-right: 10px;
 `;
 const SmallHeaderText = styled.div`
   margin-right: 6px;
   color: #aa85ba;
-  font-size: 12px;
+  font-size: 16px;
 `;
 
 const Week = ({ data }) => {
@@ -73,10 +73,9 @@ const Week = ({ data }) => {
           : <Item key={index}>
             <HeaderText>
               <BaseHeaderText weight={day.today && '900'}>
-                {day.week}
+                {day.week},
               </BaseHeaderText>
-              <SmallHeaderText>{day.day},</SmallHeaderText>
-              <SmallHeaderText>{day.month}</SmallHeaderText>
+              <SmallHeaderText>{day.day}</SmallHeaderText>
             </HeaderText>
             {day.boards?.map((board, index) => (
               <Board key={index} board={board} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Task from './Task';
 import AddTask from './AddTask';
 import Tags from '../assets/Tags';
@@ -120,28 +120,56 @@ const tags = [
 ]
 const colors = ["242,170,170", "224,244,245", "221,221,221", "250,190,167", "243,230,227", "241,197,197", "195,174,214", "223,211,195", "250,240,175", "160,193,184", "246,222,246", "255,236,199"];
 
+const createBoard = (value) => {
+  if (value.length > 0) {
+    console.log("Value is not empty")
+  } else {
+    console.log("Value is empty")
+  }
+}
+
+function useOutsideAlerter(ref, value) {
+  useEffect(() => {
+    /// Create board if clicked on outside of element and value of board not empty
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        createBoard(value);
+      }
+    }
+    /// Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      /// Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, value]);
+}
+
 function EditingBoard() {
   const [color, setColor] = useState(DEFAULT_HEX_COLOR);
   const [inputValue, setInputValue] = useState('');
   const [chosenColor, setChosenColor] = useState(false);
   const [chosenTag, setChosenTag] = useState(false);
+  const wrapperRef = useRef(null);
+
+  useOutsideAlerter(wrapperRef, inputValue);
 
   const onKeyDownHandler = e => {
     if (e.keyCode === 13) {
       /// Add new board
-      console.log("ENTER");
+      createBoard(inputValue)
     }
   };
 
   const onDoneHandler = () => {
     /// Add new board
-    console.log("DONE");
+    createBoard(inputValue)
   };
 
   const handleInputChange = (e) => setInputValue(e.target.value);
 
   return (
-    <StyledBoard primaryColor={color} transition={"none"}>
+    <StyledBoard ref={wrapperRef} primaryColor={color} transition={"none"}>
       <StyledBoardHeadWithLink primaryColor={color}>
         <StyledBoardHeadInput
           primaryColor={color}
